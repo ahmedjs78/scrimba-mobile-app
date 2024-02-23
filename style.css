@@ -1,0 +1,36 @@
+.cont{
+    height: 80%;
+    border-radius: 10px;
+    border: solid 4px black;
+    display: flex;
+    flex-direction: column;
+    max-width: 320px;
+    margin: 30px auto;
+    align-items: center;
+    justify-content: center;
+}
+.input-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+    margin-top:20px;
+}
+.input-field{
+    height: 50px;
+    text-align: center;
+    background-color: #DCE1EB;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+}
+.add-button{
+    font-size: 20px;
+    background-color: #AC485A;
+    height: 50px;
+    border: 10px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-family: 'Rubik',sans-serif;
+}
