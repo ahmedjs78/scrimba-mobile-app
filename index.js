@@ -18,34 +18,35 @@ const addButtonEl = document.querySelector(".add-button")
 
 addButtonEl.addEventListener("click", function() {
     let inputValue = inputFieldEl.value
-    push(shoppingListInDB,inputValue)
+    if(inputValue.trim() === "" ){
+        inputFieldEl.placeholder = "Please enter a value";
+    }else{
+        renderItems(listItems)
+        push(shoppingListInDB,inputValue)
+    }
     
-    clearINputField()
     
-    renderItems(inputValue)
-        
 })
 
 
 onValue(shoppingListInDB, function(snapshot){
-    
+    clearUl ()
     let turnSnapShotDataToArry = Object.values(snapshot.val())
+    console.log(Array.isArray(turnSnapShotDataToArry))
+    let listItems = ""
+    for(let i = 0;i < turnSnapShotDataToArry.length;i++){
+        listItems += `<li>${turnSnapShotDataToArry[i]}</li>`
 
-    for(let i = 0;i <turnSnapShotDataToArry.length;i++){
-       
-        console.log(turnSnapShotDataToArry[i])
-    
     }
-
-    console.log(turnSnapShotDataToArry)
+    renderItems(listItems) 
 
 })
 
-function clearINputField (){
-    inputFieldEl.value = ""
+function clearUl (){
+    inputFieldEl.innerHTML = ""
     
 }
 
 function renderItems(itemsValue){
-    shopingEl.innerHTML += `<li>${itemsValue}}</li>`
+    shopingEl.innerHTML = itemsValue
 }
