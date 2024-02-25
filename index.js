@@ -17,36 +17,51 @@ const addButtonEl = document.querySelector(".add-button")
 
 
 addButtonEl.addEventListener("click", function() {
+    clearUl()
     let inputValue = inputFieldEl.value
     if(inputValue.trim() === "" ){
         inputFieldEl.placeholder = "Please enter a value";
+        renderItems(bomba)
     }else{
-        renderItems(listItems)
+        renderItems(bomba)
         push(shoppingListInDB,inputValue)
     }
     
     
 })
-
-
+let bomba 
 onValue(shoppingListInDB, function(snapshot){
-    clearUl ()
-    let turnSnapShotDataToArry = Object.values(snapshot.val())
+    clearUl()
+    let turnSnapShotDataToArry = Object.entries(snapshot.val())
     console.log(Array.isArray(turnSnapShotDataToArry))
-    let listItems = ""
-    for(let i = 0;i < turnSnapShotDataToArry.length;i++){
-        listItems += `<li>${turnSnapShotDataToArry[i]}</li>`
+
+    let currentValue
+    for(let i =0 ; i < turnSnapShotDataToArry.length; i++){
+    
+    let currentitem = turnSnapShotDataToArry[i]
+    console.log(currentitem)
+    let currentId = currentitem[0]
+    currentValue = currentitem[1]
+    console.log(currentValue)
 
     }
-    renderItems(listItems) 
 
+
+
+    bomba = currentValue
+    
+    renderItems()
 })
 
-function clearUl (){
-    inputFieldEl.innerHTML = ""
-    
+function clearUl(){
+    shopingEl.innerHTML = ""
 }
 
-function renderItems(itemsValue){
-    shopingEl.innerHTML = itemsValue
+function renderItems(x){
+    let listItems = ""
+    for(let i = 0;i < 8;i++){
+        listItems += `<li>${x}</li>`
+    }
+    
+    shopingEl.innerHTML = listItems
 }
