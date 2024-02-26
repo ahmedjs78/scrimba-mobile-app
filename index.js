@@ -29,7 +29,6 @@ addButtonEl.addEventListener("click", function() {
         push(shoppingListInDB,inputValue)
     }
     
-    
 })
 
 onValue(shoppingListInDB, function(snapshot){
@@ -51,10 +50,21 @@ onValue(shoppingListInDB, function(snapshot){
 })
 
 function clearUl() {
+        bomba = []
         shopingEl.innerHTML = "";
    
 }
+function deleteitem(x) {
+    clearUl()
+    console.log(x)
+    let exactLocationOfBooksInDB = ref(database, "books/" +  x)
+    remove(exactLocationOfBooksInDB)
+    
+        // Once removed from the database, re-render the items
+        console.log("Item removed from the database:", x);
 
+
+}
 function renderItems(x){
     console.log('called')
     for(let i = 0;i < x.length;i++){
@@ -65,17 +75,7 @@ function renderItems(x){
         let newEl = document.createElement("li")
         newEl.textContent = itemValue
         newEl.style.cursor = 'pointer'
-        newEl.addEventListener("dblclick", function() {
-            let exactLocationOfBooksInDB = ref(database, "books/" + itemId)
-            remove(exactLocationOfBooksInDB)
-
-                
-            
-                // Once removed from the database, re-render the items
-                console.log("Item removed from the database:", itemId);
-    
-
-        })
+        newEl.addEventListener("dblclick", deleteitem.bind(null,itemId))
         
         shopingEl.append(newEl)
         
