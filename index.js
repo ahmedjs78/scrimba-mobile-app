@@ -19,6 +19,11 @@ const addButtonEl = document.querySelector(".add-button")
 addButtonEl.addEventListener("click", function() {
     clearUl()
     let inputValue = inputFieldEl.value
+    console.log(bomba.length)
+   
+
+
+    
     if(inputValue.trim() === "" ){
         inputFieldEl.placeholder = "Please enter a value";
         shopingEl.innerHTML = ""
@@ -43,11 +48,13 @@ onValue(shoppingListInDB, function(snapshot){
     let currentId = currentitem[0]
     let currentValue = currentitem[1]
     bomba.push(currentitem)
-    }
-
+    
 
     renderItems(bomba)
-})
+    }
+}
+)
+
 
 function clearUl() {
         bomba = []
@@ -71,13 +78,18 @@ function renderItems(x){
         let currentItem = x[i]
         let itemId = currentItem[0]
         let itemValue = currentItem[1]
-
         let newEl = document.createElement("li")
-        newEl.textContent = itemValue
-        newEl.style.cursor = 'pointer'
-        newEl.addEventListener("dblclick", deleteitem.bind(null,itemId))
-        
-        shopingEl.append(newEl)
+
+        if(itemValue === inputFieldEl.value){
+            console.log('error')
+        }else{
+            newEl.textContent = itemValue
+            newEl.style.cursor = 'pointer'
+            newEl.addEventListener("dblclick", deleteitem.bind(null,itemId))
+            
+            shopingEl.append(newEl)
+        }
+
         
     }
 }
