@@ -16,25 +16,7 @@ const inputFieldEl = document.querySelector(".input-field")
 const addButtonEl = document.querySelector(".add-button")
 
 
-addButtonEl.addEventListener("click", function() {
-    clearUl()
-    let inputValue = inputFieldEl.value
-    console.log(bomba.length)
-   
 
-
-    
-    if(inputValue.trim() === "" ){
-        inputFieldEl.placeholder = "Please enter a value";
-        shopingEl.innerHTML = ""
-        renderItems(bomba)
-    }else{
-        shopingEl.innerHTML = ""
-        renderItems(bomba)
-        push(shoppingListInDB,inputValue)
-    }
-    
-})
 
 onValue(shoppingListInDB, function(snapshot){
     
@@ -48,21 +30,36 @@ onValue(shoppingListInDB, function(snapshot){
     let currentId = currentitem[0]
     let currentValue = currentitem[1]
     bomba.push(currentitem)
-    
-
-    renderItems(bomba)
     }
-}
-)
+renderItems(bomba)
+})
+
+addButtonEl.addEventListener("click", function() {
+   
+    let inputValue = inputFieldEl.value
+        console.log(bomba.length)
+
+        if (bomba.some(item => item[0] === inputValue)) {
+            console.log("Error: Item already exists");
+            console.log("err")
+        }else{
+            shopingEl.innerHTML = ""
+            renderItems(bomba)
+            push(shoppingListInDB,inputValue)
+
+        }
+   
+   
+    
+})
+
 
 
 function clearUl() {
-        bomba = []
+       
         shopingEl.innerHTML = "";
-   
 }
 function deleteitem(x) {
-    clearUl()
     console.log(x)
     let exactLocationOfBooksInDB = ref(database, "books/" +  x)
     remove(exactLocationOfBooksInDB)
@@ -72,24 +69,22 @@ function deleteitem(x) {
 
 
 }
+
 function renderItems(x){
+    clearUl()
+    console.log(bomba.length)
     console.log('called')
     for(let i = 0;i < x.length;i++){
         let currentItem = x[i]
         let itemId = currentItem[0]
         let itemValue = currentItem[1]
         let newEl = document.createElement("li")
-
-        if(itemValue === inputFieldEl.value){
-            console.log('error')
-        }else{
-            newEl.textContent = itemValue
-            newEl.style.cursor = 'pointer'
-            newEl.addEventListener("dblclick", deleteitem.bind(null,itemId))
-            
-            shopingEl.append(newEl)
-        }
-
         
+        
+        newEl.textContent = itemValue
+        newEl.style.cursor = 'pointer'
+        newEl.addEventListener("dblclick", deleteitem.bind(null,itemId))
+        
+        shopingEl.append(newEl)
     }
 }
