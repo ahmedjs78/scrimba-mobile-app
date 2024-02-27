@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js" 
 import {getDatabase, ref,push, onValue,remove} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 
@@ -20,16 +20,21 @@ const addButtonEl = document.querySelector(".add-button")
 
 onValue(shoppingListInDB, function(snapshot){
     
-    let turnSnapShotDataToArry = Object.entries(snapshot.val())
-    console.log(Array.isArray(turnSnapShotDataToArry))
-
     
-    for(let i =0 ; i < turnSnapShotDataToArry.length; i++){
-    
-    let currentitem = turnSnapShotDataToArry[i]
-    let currentId = currentitem[0]
-    let currentValue = currentitem[1]
-    bomba.push(currentitem)
+    clearUl()
+    if(snapshot.exists()){
+        let turnSnapShotDataToArry = Object.entries(snapshot.val())
+        
+        console.log(Array.isArray(turnSnapShotDataToArry))
+        for(let i =0 ; i < turnSnapShotDataToArry.length; i++){
+            
+            let currentitem = turnSnapShotDataToArry[i]
+            let currentId = currentitem[0]
+            let currentValue = currentitem[1]
+            bomba.push(currentitem)
+        }
+    }else {
+            console.log("amte")
     }
 renderItems(bomba)
 })
@@ -39,24 +44,18 @@ addButtonEl.addEventListener("click", function() {
     let inputValue = inputFieldEl.value
         console.log(bomba.length)
 
-        if (bomba.some(item => item[0] === inputValue)) {
-            console.log("Error: Item already exists");
-            console.log("err")
-        }else{
-            shopingEl.innerHTML = ""
-            renderItems(bomba)
-            push(shoppingListInDB,inputValue)
+           
 
-        }
-   
-   
+                shopingEl.innerHTML = ""
+                renderItems(bomba)
+                push(shoppingListInDB,inputValue)
     
 })
 
 
 
 function clearUl() {
-       
+        bomba = []
         shopingEl.innerHTML = "";
 }
 function deleteitem(x) {

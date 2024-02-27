@@ -9,6 +9,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .input-cont{
     display: flex;
     flex-direction: column;
@@ -16,6 +17,7 @@
     width: 80%;
     margin-top:20px;
 }
+
 .input-field{
     height: 50px;
     text-align: center;
@@ -24,6 +26,7 @@
     border-radius: 10px;
     font-size: 20px;
 }
+
 .add-button{
     font-size: 20px;
     background-color: #AC485A;
@@ -33,6 +36,11 @@
     color: white;
     font-weight: bold;
     font-family: 'Rubik',sans-serif;
+}
+
+.add-button:hover{
+    background-color:  #432000;
+    cursor: pointer;
 }
 
 .items-cont{
@@ -55,5 +63,9 @@ ul li {
    list-style: none;
    background-color: #FFFDF8;
    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+   user-select: none;
   
+}
+ul li:hover{
+    background-color:#FFECC7;
 }
