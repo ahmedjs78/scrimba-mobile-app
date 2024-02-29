@@ -5,6 +5,7 @@ import {getDatabase, ref,push, onValue,remove} from "https://www.gstatic.com/fir
 const appSettings = {
     databaseURL: "https://realtime-database-b4c14-default-rtdb.asia-southeast1.firebasedatabase.app/"
 }
+
 let bomba = []
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
@@ -34,7 +35,7 @@ onValue(shoppingListInDB, function(snapshot){
             bomba.push(currentitem)
         }
     }else {
-            console.log("amte")
+            console.log("thery is no items .. yet")
     }
 renderItems(bomba)
 })
@@ -42,14 +43,15 @@ renderItems(bomba)
 addButtonEl.addEventListener("click", function() {
    
     let inputValue = inputFieldEl.value
+    
         console.log(bomba.length)
 
-           
+
 
                 shopingEl.innerHTML = ""
                 renderItems(bomba)
                 push(shoppingListInDB,inputValue)
-    
+                inputFieldEl.value = ""
 })
 
 
@@ -59,14 +61,14 @@ function clearUl() {
         shopingEl.innerHTML = "";
 }
 function deleteitem(x) {
-    console.log(x)
-    let exactLocationOfBooksInDB = ref(database, "books/" +  x)
-    remove(exactLocationOfBooksInDB)
+        console.log(x)
+        let exactLocationOfBooksInDB = ref(database, "books/" +  x)
+        remove(exactLocationOfBooksInDB)
     
         // Once removed from the database, re-render the items
         console.log("Item removed from the database:", x);
-
-
+        console.log("onval")
+        onValue()
 }
 
 function renderItems(x){
